@@ -10,6 +10,13 @@ package leetcode
 	*
 	*/
 object TwoSum extends App{
+
+	/**
+		* @param inputVector : 输入数组
+		* @param target      : 希望求和达到的值
+		*
+		* @return 返回数组中求和等于target的元素的索引
+		*/
   def twoSum(inputVector: Array[Int], target: Int): Unit ={
 	  val z = inputVector.flatMap{x =>
 		  inputVector.filter(_ != x)
@@ -18,7 +25,8 @@ object TwoSum extends App{
 				  (inputVector.indexOf(p), inputVector.indexOf(x))
 			  }
 	  }
-	  z.foreach(println)
+	  if(z.isEmpty) println("there is no solution!") else z.foreach(println)
   }
-	twoSum(Array(1, 2, 3), 4)
+
+	twoSum(Array(1, 2, 3), 8)
 }
