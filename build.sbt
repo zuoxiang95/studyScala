@@ -1,5 +1,4 @@
-
-name := "scalaStudy"
+name := "studyScala"
 
 version := "1.0"
 
