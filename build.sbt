@@ -1,5 +1,5 @@
 
-name := "Spark-ML"
+name := "scalaStudy"
 
 version := "1.0"
 
