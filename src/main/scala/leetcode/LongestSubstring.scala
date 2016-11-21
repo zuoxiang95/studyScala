@@ -13,13 +13,12 @@ package leetcode
 	*
 	**/
 object LongestSubstring extends App {
-  def findLongestString(str: String) ={
+  def findLongestString(str: String): Unit ={
 	  val answer = for(i <- 0 to (str.length -1)) yield {
 		  val indexString = str.substring(i + 1)
 
 		  val endNumber = if (indexString.contains(str(i))){
 			  indexString.indexOf(str(i))
-
 		  } else if(indexString.length < 0)  1 else indexString.length
 
 		  val q = str.substring(i, endNumber + i + 1)
