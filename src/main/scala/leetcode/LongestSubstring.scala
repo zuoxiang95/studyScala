@@ -13,6 +13,10 @@ package leetcode
 	*
 	**/
 object LongestSubstring extends App {
+	/**
+		* 寻找最长无重复的字符串
+ 		* @param str 输入字符串
+		*/
   def findLongestString(str: String): Unit ={
 	  val answer = for(i <- 0 to (str.length -1)) yield {
 		  val indexString = str.substring(i + 1)
