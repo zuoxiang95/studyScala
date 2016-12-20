@@ -19,4 +19,4 @@ trait DeliversFood extends StoreEmployee
 class DeliversPerson extends StoreEmployee with DeliversFood
 
 //编译无法通过，因为CorporateEmployee和DeliversFood没有共同的超类
-class Receptionist extends CorporateEmployee with DeliversFood
+//class Receptionist extends CorporateEmployee with DeliversFood
