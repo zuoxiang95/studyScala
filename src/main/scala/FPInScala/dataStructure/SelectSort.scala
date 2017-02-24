@@ -26,6 +26,7 @@ object SelectSort extends App{
 		array
 	}
 	val x = Array(1,2,3,5,6,7)
+
 	easySelectSort(x, false).foreach(println(_))
 }
 
