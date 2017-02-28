@@ -20,9 +20,26 @@ import scala.{Option => _, Either => _, Left => _,Right => _,_}
 //case object None extends Option[Nothing]
 //
 //
-//object Test extends App{
-//	def mean(xs: Seq[Double]): Option[Double] = {
-//    if(xs.isEmpty) None
-//		else Some(xs.sum / xs.length)
-//	}
-//}
+
+object MyOption extends App{
+	def variance(xs: Seq[Double]): Option[Double] = {
+		if(xs.isEmpty) None
+		else mean(xs).flatMap(m => mean(xs.map(x => math.pow(x - m, 2))))
+	}
+
+	def mean(xs: Seq[Double]): Option[Double] = {
+    if(xs.isEmpty) None
+		else Some(xs.sum / xs.length)
+	}
+
+	def map2[A, B, C](a: Option[A], b: Option[B])(f: (A, B) => C): Option[C] = {
+	  a.flatMap(aa => b.map(bb => f(aa, bb)))
+	}
+
+	def sequence[A](a: List[Option[A]]): Option[List[A]] = {
+		a match {
+			case Nil => Some(Nil)
+			case h :: t => h.flatMap(hh => sequence(t).map(hh :: _))
+		}
+	}
+}
