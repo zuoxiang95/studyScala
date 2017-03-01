@@ -1,4 +1,5 @@
-package FPInScala.dataStructure
+package mySort
+
 /**
 	* Created by hp on 2017/2/23.
 	*/
