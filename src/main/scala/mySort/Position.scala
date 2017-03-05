@@ -20,6 +20,14 @@ object Position {
 		var start: Int = 0
 		//定义折半查找的终点
 		var end: Int = length
+
+		/**
+			* 使用折半查找对价格数组进行查找
+			*
+			* @param itemPriceList 价格列表
+			* @param itemPrice     查询的价格
+			* @return 返回与查询价格相等的索引区间，如果未找到与商品价格相等的，则返回（-1，-1）
+			*/
 		def findPrice(itemPriceList: List[Double], itemPrice: Double): (Int, Int) = {
 			while (start <= end) {
 				mid = (start + end) / 2
@@ -45,13 +53,22 @@ object Position {
 			(-1, -1)
 		}
 
-		def findFinal(itemList: List[String], start: Int, end: Int, itemID: String): (String, Int) ={
+		/**
+			* 通过查询的价格相等区间中查找与商品id相等的商品
+			*
+			* @param itemList      商品ID列表
+			* @param start         查询起始索引
+			* @param end           商品结束索引
+			* @param itemID        商品ID
+			* @return 返回商品ID与商品所在的索引，如果商品没有查找到则返回（商品ID，-1）
+			*/
+		def findID(itemList: List[String], start: Int, end: Int, itemID: String): (String, Int) ={
 			for(i <- start to end){
 				if(itemList(i) == itemID) return (itemID, i)
 			}
 			(itemID, -1)
 		}
 		val priceRange = findPrice(itemPriceList, itemPrice)
-		findFinal(itemList, priceRange._1, priceRange._2, itemID)
+		findID(itemList, priceRange._1, priceRange._2, itemID)
 	}
 }
