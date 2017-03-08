@@ -8,11 +8,11 @@ SELECT DISTINCT depart FROM teacher;
 SELECT * FROM student;
 
 -- 查询Score表中成绩在60到80之间的所有记录。
-SELECT * FROM score WHERE degree BETWEEN 60 AND 80;
+SELECT * FROM score WHERE "degree" BETWEEN 60 AND 80;
 
 -- 查询Score表中成绩为85，86或88的记录。
-SELECT * FROM score WHERE degree = 85 OR degree = 86 OR degree = 88;
-SELECT * FROM score WHERE degree in (85,86, 88);
+SELECT * FROM score WHERE "degree" = 85 OR "degree" = 86 OR "degree" = 88;
+SELECT * FROM score WHERE "degree" in (85,86, 88);
 
 -- 查询Student表中“95031”班或性别为“女”的同学记录。
 select * from student where ssex = '女' or "class" = '95031';
@@ -21,7 +21,7 @@ select * from student where ssex = '女' or "class" = '95031';
 select * from student order by "class" desc;
 
 -- 以Cno升序、Degree降序查询Score表的所有记录。
-select * from score order by cno ,degree desc;
+select * from score order by cno ,"degree" desc;
 
 -- 查询“95031”班的学生人数。
 select count(*) from student where "class" = '95031'
@@ -30,22 +30,71 @@ select count(*) from student where "class" = '95031'
 select sno, cno from score where "degree" = (select max("degree") from score)
 
 -- 查询‘3-105’号课程的平均分。
-select avg(degree) from score where  cno = '3-105'
+select avg("degree") from score where  cno = '3-105'
 
 -- 查询Score表中至少有5名学生选修的并以3开头的课程的平均分数。（计数条件使用having函数来进行筛选）
-select avg(degree) from score where cno like '3%' group by cno having count(*) >= 5
+select avg("degree") from score where cno like '3%' group by cno having count(*) >= 5
 
 -- 查询最低分大于70，最高分小于90的Sno列。
 select sno from score group by sno having max("degree") < 90 and min("degree") > 70
 
--- 查询所有学生的Sname、Cno和Degree列。
-select student.sname, score.cno, score.degree from student, score where student.sno = score.sno
--- 查询所有学生的Sno、Cname和Degree列。
+-- 查询所有学生的Sname、Cno和Degree列。(使用join来从两个表中获取数据)
+SELECT
+	student.sname,
+	score.cno,
+	score."degree"
+FROM
+	student AS student
+JOIN score ON student.sno = score.sno
+
+-- 查询所有学生的Sno、Cname和Degree列。(多个表之间的连接可以使用多个join来进行连接查询)
+SELECT
+	student.sno,
+	course.cno,
+	score."degree"
+FROM
+	student AS student
+JOIN score ON student.sno = score.sno
+JOIN course ON score.cno = course.cno;
+
 -- 查询所有学生的Sname、Cname和Degree列。
+SELECT
+	student.sname,
+	course.cname,
+	score."degree"
+FROM
+	student AS student
+JOIN score ON student.sno = score.sno
+JOIN course ON score.cno = course.cno
+
 -- 查询“95033”班所选课程的平均分。
--- 假设使用如下命令建立了一个grade表：
+SELECT
+	AVG ("degree")
+FROM
+	score AS score
+JOIN student ON student.sno = score.sno
+WHERE
+	student."class" = '95033';
+
 -- 查询选修“3-105”课程的成绩高于“109”号同学成绩的所有同学的记录。
+SELECT
+	*
+FROM
+	score
+WHERE
+	cno = '3-105'
+AND "degree" > (
+	SELECT
+		"degree"
+	FROM
+		score
+	WHERE
+		sno = '109'
+	AND cno = '3-105'
+)
+
 -- 查询score中选学一门以上课程的同学中分数为非最高分成绩的记录。
+
 -- 查询成绩高于学号为“109”-- 课程号为“3-105”的成绩的所有记录。
 -- 查询和学号为108的同学同年出生的所有学生的Sno-- Sname和Sbirthday列。
 -- 查询“张旭“教师任课的学生成绩。
